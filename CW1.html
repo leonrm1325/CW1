@@ -11,9 +11,19 @@
                 <h1 v-text="sitename"></h1>
             </header>
             <main>
+                <!--vue.js for the maths products-->
                 <h2 v-text="mathsProduct.title"></h2>
                 <p v-text="mathsProduct.description"></p>
-                <p>Price: {{mathsProduct.price}}</p> 
+                <p>Availability: {{mathsProduct.availability}} spaces</p>
+                <p>Price: £ {{mathsProduct.price}}</p>
+                <input type="button" value="add" v-on:click="addMaths">
+                
+                <!--vue.js for the english products-->
+                <h3 v-text="englishProduct.title"></h3>
+                <p v-text="englishProduct.description"></p>
+                <p>Availability: {{englishProduct.availability}} spaces</p>
+                <p>Price: £ {{englishProduct.price}}</p>
+                <input type="button" value="add" v-on:click="addEnglish">
             </main>
         </div>
         <script type="text/javascript">
@@ -27,8 +37,33 @@
                     id:1,
                     title:'Maths class',
                     description:'After school maths class to help students strengthen their maths skills',
+                    availability:5,
                     price:15,
-                }
+                },
+
+                englishProduct:{
+                    id:2,
+                    title:'English class',
+                    description:'After school english class to help students strengthen their english skills',
+                    availability:5,
+                    price:15,
+                },
+
+                basket: [],
+                },
+                methods:{
+                    addMaths:function(){
+                        this.basket.push(this.mathsProduct.id)
+                    },
+
+                    addEnglish:function(){
+                        this.basket.push(this.englishProduct.id);
+                    }
+                },
+                computed:{
+                    cartItemCount:function(){
+                        return this.cart.length || "";
+                    }
                 }
             });
         </script>

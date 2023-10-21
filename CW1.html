@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title>After school club</title>
+        <!--script loads vue.js from a server-->
+        <script src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
+    </head>
+
+    <body>
+        <div id="app">
+            <header>
+                <h1 v-text="sitename"></h1>
+            </header>
+            <main>
+                <h2 v-text="mathsProduct.title"></h2>
+                <p v-text="mathsProduct.description"></p>
+                <p>Price: {{mathsProduct.price}}</p> 
+            </main>
+        </div>
+        <script type="text/javascript">
+            //creates vue.js instance
+            var webstore = new Vue({
+                el: '#app', 
+                data: { 
+                // sitename key links to the h1 tag
+                sitename: 'After School Club booking System',
+                mathsProduct:{
+                    id:1,
+                    title:'Maths class',
+                    description:'After school maths class to help students strengthen their maths skills',
+                    price:15,
+                }
+                }
+            });
+        </script>
+    </body>
+</html>

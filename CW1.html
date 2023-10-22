@@ -9,8 +9,10 @@
         <div id="app">
             <header>
                 <h1 v-text="sitename"></h1>
+                <button> Checkout {{basketItemCount}} </button>
             </header>
             <main>
+
                 <!--vue.js for the maths products-->
                 <h2 v-text="mathsProduct.title"></h2>
                 <p v-text="mathsProduct.description"></p>
@@ -53,16 +55,28 @@
                 },
                 methods:{
                     addMaths:function(){
-                        this.basket.push(this.mathsProduct.id)
+                        if (this.mathsProduct.availability > 0) {
+                        this.basket.push(this.mathsProduct.id);
+                        this.mathsProduct.availability--;
+                        }
+                        else{
+                            alert("Out of stock");
+                        }
                     },
 
                     addEnglish:function(){
+                        if (this.englishProduct.availability > 0){
                         this.basket.push(this.englishProduct.id);
+                        this.englishProduct.availability--;
+                        }
+                        else{
+                            alert("Out of stock");
+                        }
                     }
                 },
                 computed:{
-                    cartItemCount:function(){
-                        return this.cart.length || "";
+                    basketItemCount:function(){
+                        return this.basket.length || "";
                     }
                 }
             });

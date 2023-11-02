@@ -43,6 +43,7 @@
                         if (product.availability > 0) {
                         this.basket.push(product.id);
                         product.availability--;
+                        console.log("Added product to basket:", product.id);
                         } else {
                         alert("Out of stock");
                         }
@@ -50,7 +51,7 @@
                 },
                 computed:{
                     basketItemCount:function(){
-                        return this.basket.length;
+                        return this.basket.length || "";
                     }
                 }
             });

@@ -3,6 +3,7 @@
         <title>After school club</title>
         <!--script loads vue.js from a server-->
         <script src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
+        <script src="products.js"></script>
     </head>
 
     <body>
@@ -12,20 +13,17 @@
                 <button> Checkout {{basketItemCount}} </button>
             </header>
             <main>
-
-                <!--vue.js for the maths products-->
-                <h2 v-text="mathsProduct.title"></h2>
-                <p v-text="mathsProduct.description"></p>
-                <p>Availability: {{mathsProduct.availability}} spaces</p>
-                <p>Price: £ {{mathsProduct.price}}</p>
-                <input type="button" value="add" v-on:click="addMaths">
-                
-                <!--vue.js for the english products-->
-                <h3 v-text="englishProduct.title"></h3>
-                <p v-text="englishProduct.description"></p>
-                <p>Availability: {{englishProduct.availability}} spaces</p>
-                <p>Price: £ {{englishProduct.price}}</p>
-                <input type="button" value="add" v-on:click="addEnglish">
+                <div v-for="product in products">
+                    <h2 v-text="product.title"></h2>
+                    <figure>
+                        <img style="max-width:50px; max-height: 50px;" v-bind:src="product.image">
+                    </figure>
+                    <p v-text="product.description"></p>
+                    <p>Availability: {{product.availability}} spaces</p>
+                    <p>Price: £ {{product.price}}</p>
+                    <button v-on:click='addProduct(product)'>Add</button>
+                  </div>
+                  
             </main>
         </div>
         <script type="text/javascript">
@@ -35,44 +33,20 @@
                 data: { 
                 // sitename key links to the h1 tag
                 sitename: 'After School Club booking System',
-                mathsProduct:{
-                    id:1,
-                    title:'Maths class',
-                    description:'After school maths class to help students strengthen their maths skills',
-                    availability:5,
-                    price:15,
-                },
 
-                englishProduct:{
-                    id:2,
-                    title:'English class',
-                    description:'After school english class to help students strengthen their english skills',
-                    availability:5,
-                    price:15,
-                },
+                products: products,
 
                 basket: [],
                 },
-                methods:{
-                    addMaths:function(){
-                        if (this.mathsProduct.availability > 0) {
-                        this.basket.push(this.mathsProduct.id);
-                        this.mathsProduct.availability--;
-                        }
-                        else{
-                            alert("Out of stock");
+                methods: {
+                    addProduct: function (product) {
+                        if (product.availability > 0) {
+                        this.basket.push(product.id);
+                        product.availability--;
+                        } else {
+                        alert("Out of stock");
                         }
                     },
-
-                    addEnglish:function(){
-                        if (this.englishProduct.availability > 0){
-                        this.basket.push(this.englishProduct.id);
-                        this.englishProduct.availability--;
-                        }
-                        else{
-                            alert("Out of stock");
-                        }
-                    }
                 },
                 computed:{
                     basketItemCount:function(){

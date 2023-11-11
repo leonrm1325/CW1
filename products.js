@@ -7,7 +7,7 @@ let products = [
         image: 'images/mathsIcon.png',
         description:'After school maths class to help students strengthen their maths skills',
         availability:5,
-        location: 'room 23',
+        location: 'maths classroom',
         price:15,
     },
 
@@ -17,7 +17,7 @@ let products = [
         image: 'images/englishIcon.png',
         description:'After school english class to help students strengthen their english skills',
         availability:5,
-        location: 'room 24',
+        location: 'english classroom',
         price:15,
     },
 
@@ -27,7 +27,7 @@ let products = [
         image:'images/football.png',
         description:'After school football to keep students active',
         availability:5,
-        location: 'room 14',
+        location: 'field',
         price:5,
     },
 
@@ -57,17 +57,17 @@ let products = [
         image:'images/debate.png',
         description:'After school debating on the current world issues',
         availability:5,
-        location: 'room 5',
+        location: 'hall',
         price:6,
     },
 
     {
         id:7,
-        title:'Football club',
+        title:'Film club',
         image:'images/filmClub.png',
         description:'After school film club watching, reviewing and discussing a variety of movies',
         availability:5,
-        location: 'field',
+        location: 'room 10',
         price:10,
     },
 
@@ -77,7 +77,7 @@ let products = [
         image:'images/science.png',
         description:'After school science class to help students strengthen their science skills',
         availability:5,
-        location: 'room 13',
+        location: 'lab',
         price:15,
     },
 
@@ -87,7 +87,7 @@ let products = [
         image:'images/spanishIcon.png',
         description:'After school spanish club for anyone interested in learning spanish',
         availability:5,
-        location: 'room 10',
+        location: 'spanish classroom',
         price:4,
     },
 
@@ -97,7 +97,7 @@ let products = [
         image:'images/frenchIcon.png',
         description:'After school french club for anyone interested in learning french',
         availability:5,
-        location:'room 3',
+        location:'french classroom',
         price:4,
     },
 ]

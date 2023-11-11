@@ -1,4 +1,4 @@
-<html>
+<html style="font-family: Arial, Helvetica, sans-serif;">
     <head>
         <title>After school club</title>
         <!--script loads vue.js from a server-->
@@ -10,20 +10,43 @@
         <div id="app">
             <header>
                 <h1 v-text="sitename"></h1>
-                <button> Checkout {{basketItemCount}} </button>
+                <button v-on:click='showCheckout'> Checkout {{basketItemCount}} </button>
             </header>
             <main>
-                <div v-for="product in products">
-                    <h2 v-text="product.title"></h2>
-                    <figure>
-                        <img style="max-width:50px; max-height: 50px;" v-bind:src="product.image">
-                    </figure>
-                    <p v-text="product.description"></p>
-                    <p>Availability: {{product.availability}} spaces</p>
-                    <p>Price: £ {{product.price}}</p>
-                    <button v-on:click='addProduct(product)'>Add</button>
-                  </div>
-                  
+                <div v-if='showProduct'>
+                    <label for="sortSelect">Sort by:</label>
+                        <select id="sortSelect" v-model="selectedSort" @change="sortProducts">
+                            <option value="default">Default</option>
+                            <option value="ascPrice">Price: Ascending</option>
+                            <option value="descPrice">Price: Descending</option>
+                            <option value="ascTitle">Title: Ascending</option>
+                            <option value="descTitle">Title: Descending</option>
+                        </select>
+                    <!--div displays the product page -->
+                    <div v-for="product in sortedProducts">
+                        <!--The structure of each product-->
+                        <h2 v-text="product.title"></h2>
+                        <figure>
+                            <img style="max-width:50px; max-height: 50px;" v-bind:src="product.image">
+                        </figure>
+                        <p v-text="product.description"></p>
+                        <p>Location: {{product.location}}</p>
+                        <p>Availability: {{product.availability}} spaces</p>
+                        <p>Price: £ {{product.price}}</p>
+                        <button v-on:click='addProduct(product)'>Add</button>
+                    </div>
+                </div>
+                <!-- div displays checkout page with input form to store user information-->
+                <div v-else>
+                    <h3>CHECKOUT</h3>
+                    <h4>Enter your information</h3>
+                    <p>first name:</p>
+                    <input v-model.trim="order.firstName">
+                    <p>last name:</p>
+                    <input v-model.trim="order.lastName">
+                    <p>phone number:</p>
+                    <input v-model="order.phoneNumber" type='number'>
+                </div>
             </main>
         </div>
         <script type="text/javascript">
@@ -31,28 +54,88 @@
             var webstore = new Vue({
                 el: '#app', 
                 data: { 
-                // sitename key links to the h1 tag
-                sitename: 'After School Club booking System',
-
-                products: products,
-
-                basket: [],
+                    sitename: 'After School Club Booking System',
+                    products: products,
+                    basket: [],
+                    showProduct: true,
+                    order: {
+                        firstName: '',
+                        lastName: '',
+                        phoneNumber:'',
+                    },
+                    selectedSort: 'default',
                 },
                 methods: {
                     addProduct: function (product) {
                         if (product.availability > 0) {
-                        this.basket.push(product.id);
-                        product.availability--;
-                        console.log("Added product to basket:", product.id);
+                            this.basket.push(product.id);
+                            product.availability--;
+                            console.log("Added product to basket:", product.id);
                         } else {
-                        alert("Out of stock");
+                            alert("Out of stock");
                         }
                     },
+                    showCheckout() {
+                        if (this.basket.length > 0) {
+                            this.showProduct = !this.showProduct;
+                        } else {
+                            alert("Your basket is empty. Add items before proceeding to checkout.");
+                        }
+                    },
+                    resetProducts() {
+                        this.products = this.originalProducts();
+                    },
+                    sortByPriceAsc(products) {
+                        return products.slice().sort(function (a, b) {
+                            if (a.price > b.price) return 1;
+                            if (a.price < b.price) return -1;
+                            return 0;
+                        });
+                    },
+                    sortByPriceDesc(products) {
+                        return products.slice().sort(function (a, b) {
+                            if (a.price > b.price) return -1;
+                            if (a.price < b.price) return 1;
+                            return 0;
+                        });
+                    },
+                    sortByTitleAsc(products) {
+                        return products.slice().sort(function (a, b) {
+                            if (a.title.toLowerCase() < b.title.toLowerCase()) return 1;
+                            if (a.title.toLowerCase() > b.title.toLowerCase()) return -1;
+                            return 0;
+                        });
+                    },
+                    sortByTitleDesc(products) {
+                        return products.slice().sort(function (a, b) {
+                            if (a.title.toLowerCase() < b.title.toLowerCase()) return -1;
+                            if (a.title.toLowerCase() > b.title.toLowerCase()) return 1;
+                            return 0;
+                        });
+                    },
+                    originalProducts() {
+                        return products;
+                    },
                 },
-                computed:{
-                    basketItemCount:function(){
+                computed: {
+                    basketItemCount() {
                         return this.basket.length || "";
-                    }
+                    },
+                    sortedProducts() {
+                        let sorted = [];
+                        if (this.selectedSort === 'ascPrice') {
+                            sorted = this.sortByPriceAsc(this.products);
+                        } else if (this.selectedSort === 'descPrice') {
+                            sorted = this.sortByPriceDesc(this.products);
+                        } else if (this.selectedSort === 'ascTitle') {
+                            sorted = this.sortByTitleAsc(this.products);
+                        } else if (this.selectedSort === 'descTitle') {
+                            sorted = this.sortByTitleDesc(this.products);
+                        } else {
+                            sorted = this.originalProducts();
+                        }
+                        return sorted;
+                    },
                 }
             });
         </script>

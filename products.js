@@ -6,7 +6,8 @@ let products = [
         title:'Maths class',
         image: 'images/mathsIcon.png',
         description:'After school maths class to help students strengthen their maths skills',
-        availability:10,
+        availability:5,
+        location: 'room 23',
         price:15,
     },
 
@@ -15,7 +16,8 @@ let products = [
         title:'English class',
         image: 'images/englishIcon.png',
         description:'After school english class to help students strengthen their english skills',
-        availability:10,
+        availability:5,
+        location: 'room 24',
         price:15,
     },
 
@@ -24,7 +26,8 @@ let products = [
         title:'Football club',
         image:'images/football.png',
         description:'After school football to keep students active',
-        availability:15,
+        availability:5,
+        location: 'room 14',
         price:5,
     },
 
@@ -33,7 +36,8 @@ let products = [
         title:'Basketball club',
         image:'images/basketball.png',
         description:'After school basketball to keep students active',
-        availability:10,
+        availability:5,
+        location: 'sports hall',
         price:5,
     },
 
@@ -42,7 +46,8 @@ let products = [
         title:'Tennis club',
         image:'images/tennis.png',
         description:'After school tennis to keep students active',
-        availability:8,
+        availability:5,
+        location: 'tennis courts',
         price:5,
     },
 
@@ -51,7 +56,8 @@ let products = [
         title:'Debate club',
         image:'images/debate.png',
         description:'After school debating on the current world issues',
-        availability:8,
+        availability:5,
+        location: 'room 5',
         price:6,
     },
 
@@ -60,7 +66,8 @@ let products = [
         title:'Football club',
         image:'images/filmClub.png',
         description:'After school film club watching, reviewing and discussing a variety of movies',
-        availability:15,
+        availability:5,
+        location: 'field',
         price:10,
     },
 
@@ -69,7 +76,8 @@ let products = [
         title:'Science class',
         image:'images/science.png',
         description:'After school science class to help students strengthen their science skills',
-        availability:10,
+        availability:5,
+        location: 'room 13',
         price:15,
     },
 
@@ -78,7 +86,8 @@ let products = [
         title:'Spanish club',
         image:'images/spanishIcon.png',
         description:'After school spanish club for anyone interested in learning spanish',
-        availability:10,
+        availability:5,
+        location: 'room 10',
         price:4,
     },
 
@@ -87,7 +96,8 @@ let products = [
         title:'French club',
         image:'images/frenchIcon.png',
         description:'After school french club for anyone interested in learning french',
-        availability:10,
+        availability:5,
+        location:'room 3',
         price:4,
     },
 ]

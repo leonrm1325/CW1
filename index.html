@@ -10,7 +10,7 @@
         <div id="app">
             <header>
                 <h1 v-text="sitename"></h1>
-                <button v-on:click='showCheckout'> Checkout {{basketItemCount}} </button>
+                <button v-on:click='showCheckout()'> Checkout {{basketItemCount}} </button>
             </header>
             <main>
                 <div v-if='showProduct'>
@@ -48,18 +48,21 @@
                         <ul>
                             <li v-for="productId in basket">
                                 {{ getProductById(productId).title }} - £{{ getProductById(productId).price }}
-                                <button @click="removeProduct(productId)">Remove</button>
+                                <button v-on:click="removeProduct(productId)">Remove</button>
                             </li>
                         </ul>
                     </div>
                     <h3>CHECKOUT</h3>
                     <h4>Enter your information</h3>
-                    <p>first name:</p>
-                    <input v-model.trim="order.firstName">
-                    <p>last name:</p>
-                    <input v-model.trim="order.lastName">
-                    <p>phone number:</p>
-                    <input v-model="order.phoneNumber" type='number'>
+                    <form @submit.prevent="submitForm">    
+                        <p>first name:</p>
+                        <input v-model.trim="order.firstName" required>
+                        <p>last name:</p>
+                        <input v-model.trim="order.lastName" required>
+                        <p>phone number:</p>
+                        <input v-model="order.phoneNumber" type="number" required>
+                        <button :disabled='isSubmitDisabled' type="submit">Submit</button>
+                    </form>
                 </div>
             </main>
         </div>
@@ -103,6 +106,7 @@
                         this.products = this.originalProducts();
                     },
                     //sort functions for each of the different categories
+                    //slice() allows the products to be sorted without altering the original
                     sortByPriceAsc(products) {
                         return products.slice().sort(function (a, b) {
                             if (a.price > b.price) return 1;
@@ -166,7 +170,7 @@
                     getProductById(productId) {
                         return this.products.find(product => product.id === productId);
                     },
-
+                    //splice() is used to change the contents of the array, it is used here to remove an item
                     removeProduct(productId) {
                         const index = this.basket.indexOf(productId);
                         if (index !== -1) {
@@ -176,6 +180,15 @@
                                 removedProduct.availability++; // Increase availability when removing from the basket
                             }
                         }
+                    },
+                    submitForm() {
+                        alert("Form submitted");
+                        this.order = {
+                            firstName: '',
+                            lastName: '',
+                            phoneNumber: '',
+                        };
+                        this.showProduct = true;
                     },
                 },
                 computed: {
@@ -205,6 +218,14 @@
                             sorted = this.originalProducts();
                         }
                         return sorted;
+                    },
+                    isSubmitDisabled() {
+                        // Disable the submit button if any of the required fields are empty
+                        return (
+                            !this.order.firstName ||
+                            !this.order.lastName ||
+                            !this.order.phoneNumber
+                        );
                     },
                 }
             });

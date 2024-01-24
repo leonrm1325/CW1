@@ -1,0 +1,14 @@
+{
+  "name": "cw1",
+  "version": "1.0.0",
+  "description": "git repository for coursework 1",
+  "main": "products.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

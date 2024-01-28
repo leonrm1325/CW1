@@ -72,7 +72,7 @@
                 el: '#app', 
                 data: { 
                     sitename: 'After School Club Booking System',
-                    products: products,
+                    products: [],
                     basket: [],
                     showProduct: true,
                     order: {
@@ -82,6 +82,18 @@
                     },
                     selectedSort: 'default',
                 },
+                
+                created: function() {
+                    fetch("http://localhost:3000/collections/Lessons").then(function(response){
+                        response.json().then(
+                            function(json){
+                                webstore.products = json;
+                                }
+                            )
+                        }
+                    );
+                },
+
                 methods: {
                     //function for the add button allows the user to add a product to the basket
                     addProduct: function (product) {
